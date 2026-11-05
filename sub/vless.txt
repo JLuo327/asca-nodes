@@ -1,0 +1,2 @@
+vless://78961ff0-301e-4b7b-b5e4-eb34f9926e9c@[2600:70ff:b8c1:1::504]:443?encryption=none&security=reality&sni=www.microsoft.com&fp=chrome&pbk=LDrYSYYTMAlQB4-6VlLNNR07998UcsQNYB_EJSWigyA&sid=2100f700&type=tcp&flow=xtls-rprx-vision#ASCA-vless
+hysteria2://d9510f53a7496652d3a733537d72d333@[2600:70ff:b8c1:1::504]:8443/?insecure=1#ASCA-hy2

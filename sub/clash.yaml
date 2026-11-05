@@ -1,0 +1,55 @@
+# ASCA 节点订阅（ASCS Cloud · Onoway, Alberta）
+# 生成时间：2026-11-05 23:35 CST　实测：VLESS 10/10 通过，hy2 待蜂窝网络验证
+# 计费/额度：以 ASCS Cloud 面板账单页为准（本文件不含额度数据）
+# ---------------------------------------------------------------
+# 只发布带凭据的入口（VLESS Reality / Hysteria2）。
+# 18080(HTTP) 与 11080(SOCKS5) 是无认证明文代理，故意不放进公开仓库。
+# ---------------------------------------------------------------
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+external-controller: 127.0.0.1:9090
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+
+proxies:
+  - name: "ASCA-vless"
+    type: vless
+    server: "2600:70ff:b8c1:1::504"
+    port: 443
+    uuid: "78961ff0-301e-4b7b-b5e4-eb34f9926e9c"
+    udp: true
+    tls: true
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    network: tcp
+    reality-opts:
+      public-key: "LDrYSYYTMAlQB4-6VlLNNR07998UcsQNYB_EJSWigyA"
+      short-id: "2100f700"
+
+  - name: "ASCA-hy2"
+    type: hysteria2
+    server: "2600:70ff:b8c1:1::504"
+    port: 8443
+    password: "d9510f53a7496652d3a733537d72d333"
+    sni: "2600:70ff:b8c1:1::504"
+    skip-cert-verify: true
+    up: "30 Mbps"
+    down: "200 Mbps"
+
+proxy-groups:
+  - name: "节点选择"
+    type: select
+    proxies: ["ASCA-vless", "ASCA-hy2", "DIRECT"]
+
+rules:
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  - MATCH,节点选择
